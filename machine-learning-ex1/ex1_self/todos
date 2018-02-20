@@ -1,0 +1,10 @@
+
+define prediction/hypothesis function
+define cost function
+procedure to find global minimum by gradient descent method
+procedure to find minimum by normal equation
+
+use 1-factor example:
+contour to show cost
+plot to show gradient decent path
+
