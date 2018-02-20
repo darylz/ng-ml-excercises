@@ -51,8 +51,6 @@ for i = 1:length(lambda_vec)
 	error_val(i) = linearRegCostFunction(Xval, yval, theta, lambda_i);
 end
 
-
-
 % =========================================================================
 
 end
