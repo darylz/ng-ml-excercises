@@ -53,10 +53,25 @@ error_val   = zeros(m, 1);
 
 % ---------------------- Sample Solution ----------------------
 
+% X and Xval already have bias
 
 
+% set lambda to 0 when drawing learning curve
+% lambda = 0;
 
+% get learning curve data: training & validation cost vs. training example size
+for i = 1:m
+	theta = [1; 1];
+	[theta] = trainLinearReg(X(1:i, :), y(1:i), lambda);
 
+	% the training error contains no regul part of the cost function
+	lambda_i = 0;
+	[error_train(i), grad] = linearRegCostFunction(X(1:i, :), y(1:i), theta, lambda_i);
+	[error_val(i), grad]   = linearRegCostFunction(Xval, yval, theta, lambda_i);
+end
+
+error_train = error_train(:);
+error_val   = error_val(:);
 
 
 % -------------------------------------------------------------
