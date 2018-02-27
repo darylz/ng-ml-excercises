@@ -23,11 +23,34 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+choices = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+cl = length(choices);
 
+C_vec = zeros(cl^2, 1);
+sigma_vec = zeros(cl^2, 1);
+error_vec = zeros(cl^2, 1);
 
+for i = 1:cl
+	for j = 1:cl
+        idx = (i-1)*cl + j
+		this_C = choices(i)
+		this_sigma = choices(j)
 
+		model= svmTrain(X, y, this_C, @(x1, x2) gaussianKernel(x1, x2, this_sigma));
+		hval = svmPredict(model, Xval);
 
+		this_error = mean(double(hval ~= yval))
 
+		error_vec(idx)= this_error;
+		C_vec(idx) = this_C;
+		sigma_vec(idx) = this_sigma;
+	end
+end
+
+[min_error, best_idx] = min(error_vec);
+
+C = C_vec(best_idx)
+sigma = sigma_vec(best_idx)
 
 % =========================================================================
 
